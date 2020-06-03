@@ -67,22 +67,21 @@ for (let index = 0; index < cart.items.length; index++) {
   // TODO: Add the TR to the TBODY and each of the TD's to the TR
 
 }
-function deleteFromLocalStorage(item){
+function deleteFromLocalStorage(itemName){
 
   var arr = JSON.parse(localStorage.getItem('cart'));
-//  var myItem = arr.includes(item);
-console.log(arr);
-console.log(item);
-
-
-console.log(arr.includes(String(item)));
-//  console.log(arr.indexOf(item));
-//  arr.splice(arr.indexOf(item));
-//  console.log(arr);
- 
-
-
+  var newArray =[];
+  // console.log(JSON.parse(JSON.stringify(item)));
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i].product != itemName){
+      newArray.push(arr[i]);
+    }
 }
+localStorage.clear();
+// localStorage.setItem(JSON.stringify(newArray));
+localStorage.setItem('cart',JSON.stringify(newArray));
+}
+
 
 function removeItemFromCart(event) {
   // console.log(event.target.parentNode)
@@ -95,8 +94,8 @@ function removeItemFromCart(event) {
     childParent.parentNode.removeChild(childParent);
     console.log(childParent.childNodes[2].textContent);
     console.log(childParent.childNodes[1].textContent);
-     var item = new CartItem(childParent.childNodes[2].textContent,childParent.childNodes[1].textContent);
-     deleteFromLocalStorage(item);
+    //  var item = new CartItem(childParent.childNodes[2].textContent,childParent.childNodes[1].textContent);
+     deleteFromLocalStorage(childParent.childNodes[2].textContent);
   }
   
   // if (event.target.btnTd){
@@ -110,5 +109,3 @@ function removeItemFromCart(event) {
 
 // This will initialize the page and draw the cart on screen
 renderCart();
-
-
